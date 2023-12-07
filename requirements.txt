@@ -1,0 +1,8 @@
+pandas
+aiohttp
+flask
+requests
+pytz
+python-dotenv
+click
+pytest
