@@ -1,28 +1,22 @@
 # async_stream_reader
-Asynchronous Data Stream Reading 
-
-# Takehome Case Study for Sytac
-As described in the description documents the task is to paralelly listen to 3 stream sources and create some 
-insights/reports from them. This pure Python project is develop to satisfy the project requirements.
+Asynchronous Data Stream Reading. Reading data from 3 data streaming services.
 
 ## Project Function
 The project is basically formed of 3 parts. 
 - Consuming
 - Data Storage & Processing
 - API
+  
 ### Consuming Streams
 The consumer is using aiohttp session object to capture streaming data for 3 sources, Sytflix, Sytazon and Sysney in 
 parallel. As the objects are captured, they are saved in async tasks to not let readers lose any time and miss some data. 
 
-Meanwhile also Sytac name check is also asynchronically done for the same reason. 
 
 The captured objects are saved to data/raw folder in binary format in async as well. 
 
 ### Data Storage
 Data storage is done locally in the project directory under data folder. It consists of 4 different folders:
 - **raw:** where binary data are saved during consuming
-- **archive:** as soon as the consumer stops from either 20 second timeout or finding `Sytac` 3 times, we preprocess 
-them and move to archived folder
 - **processed:** after the consuming finished, the collected binary data from raw folder are combined together to a 
 dataframe and saved in a csv file for easy querying.
 - **report:** as the consumer finishes, the run time of 3 parallel readers' runtimes are saved inside a report file 
@@ -105,7 +99,7 @@ The project can be checked out from github and can be run in different formats. 
 check some prerequisites
 ### Configuration & Init
 The configuration variables are stream endpoint, which is ```http://localhost:8080/``` by default however if it is run 
-together with `sytacdocker/video-stream-server-arm` it must be updated to ```http://data-provider:8080/```. Here it is 
+together with `docker/video-stream-server-arm` it must be updated to ```http://data-provider:8080/```. Here it is 
 important to note that "data-provider" is defined in docker-compose.yml file and it could be replaced by any name defined there.
 
 **If you are a developer:** In order to use the local `.env` file, please run init.py file with below command:
@@ -148,7 +142,7 @@ For additional runs, just go into the docker file and trigger the consumer manua
 #### Local Run Mode
 This one is for the non-dockerized environments. It is pretty straightforward and can be triggered as explained in Entry 
 Points section.
-After making sure that `sytacdocker/video-stream-server-arm` is running run below commands for each functionality:
+After making sure that `docker/video-stream-server-arm` is running run below commands for each functionality:
 ```
 For Consumer:
 python src/runner.py main start-consumer
